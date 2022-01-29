@@ -7,6 +7,7 @@ public class Controls : MonoBehaviour
     [SerializeField] private float playerSpeed = 2.0f;
     [SerializeField] private float jumpHeight = 1.0f;
     [SerializeField] private float gravityValue = -9.81f;
+
     private CharacterController controller;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
@@ -62,6 +63,7 @@ public class Controls : MonoBehaviour
         controller.Move(move * Time.deltaTime * playerSpeed);
 
         // Changes the height position of the player..
+        // TODO: fix sticking to ceiling, possibly based off velocity
         if (hasJumped && groundedPlayer)
         {
             playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
