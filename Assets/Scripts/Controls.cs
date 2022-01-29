@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.InputSystem.InputAction;
 
 [RequireComponent(typeof(CharacterController))]
 public class Controls : MonoBehaviour
@@ -7,14 +8,15 @@ public class Controls : MonoBehaviour
     [SerializeField] private float playerSpeed = 2.0f;
     [SerializeField] private float jumpHeight = 1.0f;
     [SerializeField] private float gravityValue = -9.81f;
+    [SerializeField] private MeshRenderer playerMesh;
+
 
     private CharacterController controller;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
-
+    private PlayerConfigData playerConfig;
     private Vector2 mvmtInput = Vector2.zero;
     private bool hasJumped = false;
-    private int playerID = -1;
     private GameObject otherPlayer = null;
 
     private Vector3 originalPos;
@@ -22,8 +24,7 @@ public class Controls : MonoBehaviour
     private void Start()
     {
         controller = gameObject.GetComponent<CharacterController>();
-        playerID = gameObject.GetComponent<PlayerDetails>().GetPlayerID();
-        originalPos = gameObject.GetComponent<PlayerDetails>().GetStartPos();
+        //originalPos = gameObject.GetComponent<PlayerDetails>().GetStartPos();
 
     }
 
@@ -54,12 +55,12 @@ public class Controls : MonoBehaviour
     {
         if(otherPlayer == null)
         {
-            if (playerID == 1)
+            if (playerConfig.PlayerIndex == 1)
             {
                 gameObject.tag = "PlayerOne";
                 otherPlayer = GameObject.FindGameObjectWithTag("PlayerTwo");
             }
-            else if (playerID == 2)
+            else if (playerConfig.PlayerIndex == 2)
             {
                 gameObject.tag = "PlayerTwo";
                 otherPlayer = GameObject.FindGameObjectWithTag("PlayerOne");
@@ -91,6 +92,20 @@ public class Controls : MonoBehaviour
         }
     }
 
+    public void InitializePlayer(PlayerConfigData pcd)
+    {
+        playerConfig = pcd;
+        playerMesh.material = playerConfig.PlayerMaterial;
+        playerConfig.Input.onActionTriggered += Input_onActionTriggered;
+    }
+
+    private void Input_onActionTriggered(CallbackContext obj)
+    {
+        if(obj.action.name == "mvmt")
+        {
+
+        }
+    }
     public void ResetToStartPos()
     {
         controller.enabled = false;
