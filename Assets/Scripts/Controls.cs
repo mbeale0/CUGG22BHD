@@ -17,11 +17,14 @@ public class Controls : MonoBehaviour
     private int playerID = -1;
     private GameObject otherPlayer = null;
 
+    private Vector3 originalPos;
+
     private void Start()
     {
         controller = gameObject.GetComponent<CharacterController>();
         playerID = gameObject.GetComponent<PlayerDetails>().GetPlayerID();
-        
+        originalPos = gameObject.GetComponent<PlayerDetails>().GetStartPos();
+
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -40,7 +43,6 @@ public class Controls : MonoBehaviour
     }
     void Update()
     {
-        Debug.Log("ig: " + controller.isGrounded);
         if(otherPlayer == null)
         {
             if (playerID == 1)
@@ -78,5 +80,12 @@ public class Controls : MonoBehaviour
         {
             playerVelocity.y = -.1f;
         }
+    }
+
+    public void ResetToStartPos()
+    {
+        controller.enabled = false;
+        GetComponentInParent<Transform>().position = originalPos;
+        controller.enabled = true;
     }
 }

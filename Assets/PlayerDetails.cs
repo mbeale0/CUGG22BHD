@@ -11,6 +11,10 @@ public class PlayerDetails : MonoBehaviour
     {
         return playerID;
     }
+    public Vector3 GetStartPos()
+    {
+        return startPos;
+    }
     public void setPlayerID(int newID)
     {
         playerID = newID;
