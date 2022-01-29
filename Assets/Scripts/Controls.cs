@@ -39,7 +39,16 @@ public class Controls : MonoBehaviour
 
     public void OnAction()
     {
-        otherPlayer.GetComponent<Renderer>().material.color = Color.black;
+        //otherPlayer.GetComponent<Renderer>().material.color = Color.black;
+        if(playerID == 1 && GameObject.Find("RedPistonController").GetComponent<PistonController>().timer > 3)
+        {
+            GameObject.Find("RedPistonController").GetComponent<PistonController>().Activate();
+        }
+        
+        if(playerID == 2 && GameObject.Find("BluePistonController").GetComponent<PistonController>().timer > 3)
+        {
+            GameObject.Find("BluePistonController").GetComponent<PistonController>().Activate();
+        }
     }
     void Update()
     {
