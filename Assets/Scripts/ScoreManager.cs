@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
@@ -69,12 +70,13 @@ public class ScoreManager : MonoBehaviour
         WinText.text = $"Player {victoriousPlayer} Won!";
         if(victoriousPlayer == "1")
         {
-            WinText.color = GameObject.FindGameObjectWithTag("PlayerOne").GetComponent<PlayerDetails>().GetColor();
+            WinText.material = PlayerConfigManager.Instance.GetColor(0);
         }
         else if (victoriousPlayer == "2")
         {
-            WinText.color = GameObject.FindGameObjectWithTag("PlayerTwo").GetComponent<PlayerDetails>().GetColor();
+            WinText.material = PlayerConfigManager.Instance.GetColor(1);
         }
         WinCanvas.SetActive(true);
     }
+    
 }

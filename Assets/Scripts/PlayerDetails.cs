@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerDetails : MonoBehaviour
 {
-    private int playerID;
+   /* private int playerID { get; set; }
     private Vector3 startPos;
     private Color color;
     public int GetPlayerID()
@@ -36,5 +36,5 @@ public class PlayerDetails : MonoBehaviour
     private void Start()
     {
         GetComponentInParent<Transform>().position = startPos;
-    }
+    }*/
 }
