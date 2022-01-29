@@ -6,7 +6,6 @@ public class PlayerDetails : MonoBehaviour
 {
     private int playerID;
     private Vector3 startPos;
-    private Color playerColor;
 
     public int GetPlayerID()
     {
@@ -16,9 +15,9 @@ public class PlayerDetails : MonoBehaviour
     {
         playerID = newID;
     }
-    public void setPlayerColr(Color newColor)
+    public void setPlayerColor(Color newColor)
     {
-        //playerColor;
+        gameObject.GetComponent<Renderer>().material.color = newColor;
     }
     public void setPlayerStart(Vector3 newStarPos)
     {
@@ -27,6 +26,6 @@ public class PlayerDetails : MonoBehaviour
 
     private void Start()
     {
-        transform.position = startPos;
+        GetComponentInParent<Transform>().position = startPos;
     }
 }
