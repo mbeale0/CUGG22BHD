@@ -9,7 +9,7 @@ public class Controls : MonoBehaviour
     [SerializeField] private float jumpHeight = 1.0f;
     [SerializeField] private float gravityValue = -9.81f;
     [SerializeField] private MeshRenderer playerMesh;
-
+    [SerializeField] private AudioClip JumpSFX = null;
 
     private CharacterController controller;
     private Vector3 playerVelocity;
@@ -78,7 +78,7 @@ public class Controls : MonoBehaviour
         if (hasJumped && groundedPlayer)
         {
             playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
-            
+            gameObject.GetComponent<AudioSource>().PlayOneShot(JumpSFX);
         }
 
         playerVelocity.y += gravityValue * Time.deltaTime;
@@ -96,16 +96,8 @@ public class Controls : MonoBehaviour
     {
         playerConfig = pcd;
         playerMesh.material = playerConfig.PlayerMaterial;
-        playerConfig.Input.onActionTriggered += Input_onActionTriggered;
     }
 
-    private void Input_onActionTriggered(CallbackContext obj)
-    {
-        if(obj.action.name == "mvmt")
-        {
-
-        }
-    }
     public void ResetToStartPos()
     {
         controller.enabled = false;
