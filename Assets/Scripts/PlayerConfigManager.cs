@@ -67,7 +67,6 @@ public class PlayerConfigManager : MonoBehaviour
     }
     public void HandlePlayerJoined(PlayerInput pi)
     {
-        Debug.Log("Player joined " + pi.playerIndex);
         
         if(!playerConfigs.Any(p => p.PlayerIndex == pi.playerIndex))
         {
@@ -83,7 +82,7 @@ public class PlayerConfigData
     public int PlayerIndex { get; set; }
     public bool IsReady { get; set; }
     public Material PlayerMaterial { get; set; }
-
+    public string PlayerTag { get; set; }
     public PlayerConfigData(PlayerInput pi)
     {
         PlayerIndex = pi.playerIndex;
