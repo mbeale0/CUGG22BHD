@@ -4,29 +4,36 @@ using UnityEngine;
 
 public class MissileController : MonoBehaviour
 {
-    private Rigidbody body;
     private float timer;
     public float timeUntilRedirect = 2f;
     public Transform playerToTarget;
-    public Vector3 tempTarget;
+    public Vector3 tempDirection;
 
     // Start is called before the first frame update
     void Start()
     {
-        body = GetComponent<Rigidbody>();
-        tempTarget = playerToTarget.position;
+        tempDirection = playerToTarget.position - transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
         timer -= Time.deltaTime;
-        body.velocity = Vector3.MoveTowards(transform.position, tempTarget, 1f);
+        transform.position = Vector3.MoveTowards(transform.position, transform.position + tempDirection, 0.03f);
         if (timer <= 0)
         {
             timer = timeUntilRedirect;
-            tempTarget = playerToTarget.position;
-            Debug.Log(tempTarget);
+            tempDirection = playerToTarget.position - transform.position;
+            Debug.Log(tempDirection);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("PlayerOne") || other.CompareTag("PlayerTwo"))
+        {
+            other.GetComponent<Renderer>().material.color = Color.black;
+            Destroy(gameObject);
         }
     }
 }

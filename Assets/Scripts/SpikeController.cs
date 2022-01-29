@@ -17,4 +17,13 @@ public class SpikeController : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("PlayerOne") || other.CompareTag("PlayerTwo"))
+        {
+            other.GetComponent<Renderer>().material.color = Color.black;
+        }
+        Destroy(gameObject);
+    }
 }

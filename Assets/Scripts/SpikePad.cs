@@ -29,7 +29,7 @@ public class SpikePad : MonoBehaviour
                 GameObject newSpike = GameObject.Instantiate(spike);
                 newSpike.transform.Rotate(Vector3.forward, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
                 newSpike.transform.position = spikeTrap.transform.position + direction;
-                newSpike.GetComponent<Rigidbody>().velocity = direction * 8;
+                newSpike.GetComponent<Rigidbody>().velocity = direction * 10;
             }
         }
     }
