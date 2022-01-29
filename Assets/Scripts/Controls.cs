@@ -40,6 +40,7 @@ public class Controls : MonoBehaviour
     }
     void Update()
     {
+        Debug.Log("ig: " + controller.isGrounded);
         if(otherPlayer == null)
         {
             if (playerID == 1)
@@ -58,12 +59,10 @@ public class Controls : MonoBehaviour
         {
             playerVelocity.y = 0f;
         }
-
         Vector3 move = new Vector3(mvmtInput.x, 0, 0);
         controller.Move(move * Time.deltaTime * playerSpeed);
 
-        // Changes the height position of the player..
-        // TODO: fix sticking to ceiling, possibly based off velocity
+
         if (hasJumped && groundedPlayer)
         {
             playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
@@ -72,5 +71,12 @@ public class Controls : MonoBehaviour
 
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
+    }
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if(hit.gameObject.transform.position.y >= transform.position.y)
+        {
+            playerVelocity.y = -.1f;
+        }
     }
 }
