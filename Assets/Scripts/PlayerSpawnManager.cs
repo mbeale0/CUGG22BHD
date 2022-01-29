@@ -9,7 +9,7 @@ public class PlayerSpawnManager : MonoBehaviour
 
     public void OnPlayerJoined(PlayerInput playerInput)
     {
-        Debug.Log("player joined with ID: " + playerInput.playerIndex);
+        /*Debug.Log("player joined with ID: " + playerInput.playerIndex);
 
         playerInput.gameObject.GetComponent<PlayerDetails>().setPlayerID(playerInput.playerIndex + 1);
 
@@ -22,6 +22,6 @@ public class PlayerSpawnManager : MonoBehaviour
         else
         {
             playerInput.gameObject.GetComponent<PlayerDetails>().setPlayerColor(Color.blue);
-        }
+        }*/
     }
 }
