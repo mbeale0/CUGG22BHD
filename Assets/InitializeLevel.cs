@@ -9,9 +9,12 @@ public class InitializeLevel : MonoBehaviour
 
 
     private void Start()
-    {        var playerConfigs = PlayerConfigManager.Instance.GetPlayerConfigs().ToArray();        for(int i = 0; i < playerConfigs.Length; i++){
+    {
+        var playerConfigs = PlayerConfigManager.Instance.GetPlayerConfigs().ToArray();
+        for(int i = 0; i < playerConfigs.Length; i++){
             var player = Instantiate(playerPrefab, spawnPoints[i].position, spawnPoints[i].rotation, gameObject.transform);
             player.GetComponent<Controls>().InitializePlayer(playerConfigs[i]);
-        }    }
+        }
+    }
 
 }
