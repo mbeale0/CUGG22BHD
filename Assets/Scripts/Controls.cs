@@ -13,11 +13,14 @@ public class Controls : MonoBehaviour
 
     private Vector2 mvmtInput = Vector2.zero;
     private bool hasJumped = false;
-
+    private int playerID = -1;
+    private GameObject otherPlayer = null;
 
     private void Start()
     {
         controller = gameObject.GetComponent<CharacterController>();
+        playerID = gameObject.GetComponent<PlayerDetails>().GetPlayerID();
+        
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -30,8 +33,25 @@ public class Controls : MonoBehaviour
         hasJumped = context.action.triggered;
     }
 
+    public void OnAction()
+    {
+        otherPlayer.GetComponent<Renderer>().material.color = Color.black;
+    }
     void Update()
     {
+        if(otherPlayer == null)
+        {
+            if (playerID == 1)
+            {
+                gameObject.tag = "PlayerOne";
+                otherPlayer = GameObject.FindGameObjectWithTag("PlayerTwo");
+            }
+            else if (playerID == 2)
+            {
+                gameObject.tag = "PlayerTwo";
+                otherPlayer = GameObject.FindGameObjectWithTag("PlayerOne");
+            }
+        }
         groundedPlayer = controller.isGrounded;
         if (groundedPlayer && playerVelocity.y < 0)
         {
