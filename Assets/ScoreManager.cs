@@ -7,12 +7,15 @@ public class ScoreManager : MonoBehaviour
 {
     [SerializeField] private Text playerOneScoreText = null;
     [SerializeField] private Text playerTwoScoreText = null;
+    [SerializeField] private GameObject WinCanvas = null;
+    [SerializeField] private Text WinText = null;
 
     private int scoreOneText = 0;
     private int scoreTwoText = 0;
 
     private void Start()
     {
+        WinCanvas.SetActive(false);
         if(playerOneScoreText != null)
         {
             playerOneScoreText.text = "Player One: 0";
@@ -32,10 +35,14 @@ public class ScoreManager : MonoBehaviour
             playerOneScoreText.text = $"Player One: {scoreOneText}";
             if(scoreOneText >= 3)
             {
-                Victory("One");
+                Victory("1");
             }
-            other.gameObject.GetComponent<Controls>().ResetToStartPos();
-            GameObject.FindGameObjectWithTag("PlayerTwo").GetComponent<Controls>().ResetToStartPos();
+            else
+            {
+                other.gameObject.GetComponent<Controls>().ResetToStartPos();
+                GameObject.FindGameObjectWithTag("PlayerTwo").GetComponent<Controls>().ResetToStartPos();
+            }
+            
         }
         else if (other.CompareTag("PlayerTwo"))
         {
@@ -43,10 +50,14 @@ public class ScoreManager : MonoBehaviour
             playerTwoScoreText.text = $"Player Two: {scoreTwoText}";
             if(scoreTwoText >= 3)
             {
-                Victory("Two");
+                Victory("2");
             }
-            other.gameObject.GetComponent<Controls>().ResetToStartPos();
-            GameObject.FindGameObjectWithTag("PlayerOne").GetComponent<Controls>().ResetToStartPos();
+            else
+            {
+                other.gameObject.GetComponent<Controls>().ResetToStartPos();
+                GameObject.FindGameObjectWithTag("PlayerOne").GetComponent<Controls>().ResetToStartPos();
+            }
+            
         }
 
         
@@ -54,6 +65,16 @@ public class ScoreManager : MonoBehaviour
 
     private void Victory(string victoriousPlayer)
     {
-        Debug.Log($"Player {victoriousPlayer} won!");
+        Time.timeScale = 0;
+        WinText.text = $"Player {victoriousPlayer} Won!";
+        if(victoriousPlayer == "1")
+        {
+            WinText.color = GameObject.FindGameObjectWithTag("PlayerOne").GetComponent<PlayerDetails>().GetColor();
+        }
+        else if (victoriousPlayer == "2")
+        {
+            WinText.color = GameObject.FindGameObjectWithTag("PlayerTwo").GetComponent<PlayerDetails>().GetColor();
+        }
+        WinCanvas.SetActive(true);
     }
 }
