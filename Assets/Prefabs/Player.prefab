@@ -134,6 +134,7 @@ MonoBehaviour:
   jumpHeight: 3
   gravityValue: -9.81
   playerMesh: {fileID: 4819562247767697452}
+  JumpSFX: {fileID: 8300000, guid: 4e686d459baa745499a84b1415d7bfbb, type: 3}
 --- !u!114 &101098390011903321
 MonoBehaviour:
   m_ObjectHideFlags: 0
