@@ -38,7 +38,6 @@ public class MissileController : MonoBehaviour
         if (other.CompareTag("PlayerOne") || other.CompareTag("PlayerTwo"))
         {
             other.GetComponent<AudioSource>().PlayOneShot(boomSFX);
-            other.GetComponent<Renderer>().material.color = Color.black;
             other.GetComponent<Controls>().OnHit(6.0f);
             Destroy(gameObject);
         }

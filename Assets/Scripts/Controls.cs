@@ -44,6 +44,8 @@ public class Controls : MonoBehaviour
         lookAtCube.transform.localPosition = new Vector3(2.7f, -1f, 0);
         controller = gameObject.GetComponent<CharacterController>();
         originalPos = transform.position;
+
+        playerConfig.PlayerMaterial = playerMesh.material;
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -80,9 +82,6 @@ public class Controls : MonoBehaviour
         if(debuffTimer > 0)
         {
             debuffTimer -= Time.deltaTime;
-        } else if(GetComponent<Renderer>().material.color != playerConfig.PlayerMaterial.color)
-        {
-            GetComponent<Renderer>().material.color = playerConfig.PlayerMaterial.color;
         }
 
         if(otherPlayer == null)
@@ -138,9 +137,12 @@ public class Controls : MonoBehaviour
         {
             lookAtCube.transform.localPosition = new Vector3(-2.7f, -.95f, 0);
         }
-        playerCharacters[playerIndex].transform.LookAt(lookAtCube.transform);
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
+
+        transform.GetChild(playerIndex).rotation = Quaternion.Euler(0, 90, 0);
+        transform.GetChild(playerIndex).position = transform.position + new Vector3(0f, -1f, 0f);
+        playerCharacters[playerIndex].transform.LookAt(lookAtCube.transform);
     }
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
