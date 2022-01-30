@@ -23,7 +23,6 @@ public class PlayerConfigManager : MonoBehaviour
         else
         {
             Instance = this;
-            //DontDestroyOnLoad(Instance);
             playerConfigs = new List<PlayerConfigData>();
         }
     }
@@ -49,22 +48,7 @@ public class PlayerConfigManager : MonoBehaviour
            
         }
     }
-    private void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-    private void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        if(scene.buildIndex == 1)
-        {
-            playerInputManager.splitScreen = !playerInputManager.splitScreen;
-        }
-        
-    }
+
     public void HandlePlayerJoined(PlayerInput pi)
     {
         

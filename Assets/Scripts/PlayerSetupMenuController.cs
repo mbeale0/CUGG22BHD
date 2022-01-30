@@ -11,7 +11,6 @@ public class PlayerSetupMenuController : MonoBehaviour
     [SerializeField] private Button ReadyButton = null;
 
     private int PlayerIndex;
-    private float ignoreInputTime = 1.5f;
     public bool inputEnabled = false;
 
     public void SetPlayerIndex(int pi)
@@ -26,7 +25,6 @@ public class PlayerSetupMenuController : MonoBehaviour
 
     public void SetColor(Material color)
     {
-
         PlayerConfigManager.Instance.SetPlayerColor(PlayerIndex, color);
         ReadyPanel.SetActive(true);
         ReadyButton.Select();
@@ -35,10 +33,7 @@ public class PlayerSetupMenuController : MonoBehaviour
 
     public void OnReadyButton()
     {
-
-
         PlayerConfigManager.Instance.ReadyPlayer(PlayerIndex);
-
         ReadyButton.gameObject.SetActive(false);
     }
 

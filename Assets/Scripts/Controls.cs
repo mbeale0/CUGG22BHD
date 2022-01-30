@@ -29,7 +29,6 @@ public class Controls : MonoBehaviour
     {
         controller = gameObject.GetComponent<CharacterController>();
         originalPos = transform.position;
-        //playerConfigs = PlayerConfigManager.Instance.GetPlayerConfigs().ToArray();
     }
 
     public void OnMove(InputAction.CallbackContext context)

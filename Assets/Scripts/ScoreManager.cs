@@ -41,14 +41,7 @@ public class ScoreManager : MonoBehaviour
             }
             else
             {
-                Controls[] controls = FindObjectsOfType<Controls>();
                 
-                for(int i = 0; i < controls.Length; i++)
-                {
-                    controls[i].ResetToStartPos();
-                }
-                /*ther.gameObject.GetComponent<Controls>().ResetToStartPos();
-                FindObjectOfType<Controls>().ResetToStartPos();*/
             }
             
         }
@@ -60,15 +53,16 @@ public class ScoreManager : MonoBehaviour
             {
                 Victory("2");
             }
-            else
-            {
-                other.gameObject.GetComponent<Controls>().ResetToStartPos();
-                FindObjectOfType<Controls>().ResetToStartPos();
-            }
             
         }
+        Controls[] controls = FindObjectsOfType<Controls>();
 
-        
+        for (int i = 0; i < controls.Length; i++)
+        {
+            controls[i].ResetToStartPos();
+        }
+
+
     }
 
     private void Victory(string victoriousPlayer)
