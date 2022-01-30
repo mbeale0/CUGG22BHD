@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
-{
-    void Update()
+{   
+    public void OnQuit()
     {
-
+        Application.Quit();
     }
     public void OnMainMenu()
     {
