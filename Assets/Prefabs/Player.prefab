@@ -133,6 +133,7 @@ MonoBehaviour:
   playerSpeed: 4
   jumpHeight: 3
   gravityValue: -9.81
+  debuffTimer: 0
   playerMesh: {fileID: 4819562247767697452}
   JumpSFX: {fileID: 8300000, guid: 4e686d459baa745499a84b1415d7bfbb, type: 3}
 --- !u!114 &101098390011903321
@@ -235,7 +236,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.75
+  m_Volume: 0.38
   m_Pitch: 1
   Loop: 0
   Mute: 0

@@ -9,10 +9,13 @@ public class MissileController : MonoBehaviour
     public Transform playerToTarget;
     public Vector3 tempDirection;
 
+    [SerializeField] private AudioClip boomSFX;
+
     // Start is called before the first frame update
     void Start()
     {
         tempDirection = playerToTarget.position - transform.position;
+        GetComponent<AudioSource>().Play();
     }
 
     // Update is called once per frame
@@ -24,7 +27,9 @@ public class MissileController : MonoBehaviour
         {
             timer = timeUntilRedirect;
             tempDirection = playerToTarget.position - transform.position;
-            Debug.Log(tempDirection);
+
+            GetComponent<AudioSource>().Stop();
+            GetComponent<AudioSource>().Play();
         }
     }
 
@@ -32,6 +37,7 @@ public class MissileController : MonoBehaviour
     {
         if (other.CompareTag("PlayerOne") || other.CompareTag("PlayerTwo"))
         {
+            other.GetComponent<AudioSource>().PlayOneShot(boomSFX);
             other.GetComponent<Renderer>().material.color = Color.black;
             other.GetComponent<Controls>().OnHit(6.0f);
             Destroy(gameObject);
