@@ -10396,13 +10396,18 @@ PrefabInstance:
       objectReference: {fileID: 9043391291313241124}
     - target: {fileID: 4513574470022619004, guid: 284202fb29c903b4bab5dbeb27a8deae,
         type: 3}
+      propertyPath: offset.x
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4513574470022619004, guid: 284202fb29c903b4bab5dbeb27a8deae,
+        type: 3}
       propertyPath: offset.y
-      value: 0.5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4513574470022619004, guid: 284202fb29c903b4bab5dbeb27a8deae,
         type: 3}
       propertyPath: offset.z
-      value: -8
+      value: -15
       objectReference: {fileID: 0}
     - target: {fileID: 4513574470022619005, guid: 284202fb29c903b4bab5dbeb27a8deae,
         type: 3}
