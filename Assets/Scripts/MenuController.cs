@@ -4,9 +4,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
-{
-    public void OnPlayAgain()
+{   
+    public void OnQuit()
     {
-        SceneManager.LoadScene(1);
+        Application.Quit();
+    }
+    public void OnMainMenu()
+    {
+        Destroy(PlayerConfigManager.Instance);
+        SceneManager.LoadScene(0);
     }
 }

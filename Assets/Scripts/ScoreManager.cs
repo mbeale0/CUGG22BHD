@@ -13,6 +13,7 @@ public class ScoreManager : MonoBehaviour
 
     private int scoreOneText = 0;
     private int scoreTwoText = 0;
+    private PlayerConfigData playerConfig;
 
     private void Start()
     {
@@ -30,7 +31,7 @@ public class ScoreManager : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         
-        if (other.CompareTag("PlayerOne"))
+        if (other.GetComponent<Controls>().GetPlayerConfig().PlayerIndex == 0)
         {
             scoreOneText++;
             playerOneScoreText.text = $"Player One: {scoreOneText}";
@@ -40,12 +41,18 @@ public class ScoreManager : MonoBehaviour
             }
             else
             {
-                other.gameObject.GetComponent<Controls>().ResetToStartPos();
-                GameObject.FindGameObjectWithTag("PlayerTwo").GetComponent<Controls>().ResetToStartPos();
+                Controls[] controls = FindObjectsOfType<Controls>();
+                
+                for(int i = 0; i < controls.Length; i++)
+                {
+                    controls[i].ResetToStartPos();
+                }
+                /*ther.gameObject.GetComponent<Controls>().ResetToStartPos();
+                FindObjectOfType<Controls>().ResetToStartPos();*/
             }
             
         }
-        else if (other.CompareTag("PlayerTwo"))
+        else if (other.GetComponent<Controls>().GetPlayerConfig().PlayerIndex == 1)
         {
             scoreTwoText++;
             playerTwoScoreText.text = $"Player Two: {scoreTwoText}";
@@ -56,7 +63,7 @@ public class ScoreManager : MonoBehaviour
             else
             {
                 other.gameObject.GetComponent<Controls>().ResetToStartPos();
-                GameObject.FindGameObjectWithTag("PlayerOne").GetComponent<Controls>().ResetToStartPos();
+                FindObjectOfType<Controls>().ResetToStartPos();
             }
             
         }
@@ -70,11 +77,11 @@ public class ScoreManager : MonoBehaviour
         WinText.text = $"Player {victoriousPlayer} Won!";
         if(victoriousPlayer == "1")
         {
-            WinText.material = PlayerConfigManager.Instance.GetColor(0);
+            WinText.color = PlayerConfigManager.Instance.GetColor(0);
         }
         else if (victoriousPlayer == "2")
         {
-            WinText.material = PlayerConfigManager.Instance.GetColor(1);
+            WinText.color = PlayerConfigManager.Instance.GetColor(1);
         }
         WinCanvas.SetActive(true);
     }
