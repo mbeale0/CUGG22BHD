@@ -10,6 +10,7 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private Text playerTwoScoreText = null;
     [SerializeField] private GameObject WinCanvas = null;
     [SerializeField] private Text WinText = null;
+    [SerializeField] private AudioClip victorySFX = null;
 
     private int scoreOneText = 0;
     private int scoreTwoText = 0;
@@ -34,6 +35,7 @@ public class ScoreManager : MonoBehaviour
         if (other.GetComponent<Controls>().GetPlayerConfig().PlayerIndex == 0)
         {
             scoreOneText++;
+            gameObject.GetComponent<AudioSource>().PlayOneShot(victorySFX);
             playerOneScoreText.text = $"Player One: {scoreOneText}";
             if(scoreOneText >= 3)
             {
@@ -48,6 +50,7 @@ public class ScoreManager : MonoBehaviour
         else if (other.GetComponent<Controls>().GetPlayerConfig().PlayerIndex == 1)
         {
             scoreTwoText++;
+            gameObject.GetComponent<AudioSource>().PlayOneShot(victorySFX);
             playerTwoScoreText.text = $"Player Two: {scoreTwoText}";
             if(scoreTwoText >= 3)
             {
