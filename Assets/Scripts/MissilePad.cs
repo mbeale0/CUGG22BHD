@@ -38,5 +38,7 @@ public class MissilePad : MonoBehaviour
                 }
             }
         }
+
+        Debug.Log(other.tag);
     }
 }
