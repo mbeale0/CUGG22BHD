@@ -8,6 +8,7 @@ public class Controls : MonoBehaviour
     [SerializeField] private float playerSpeed = 2.0f;
     [SerializeField] private float jumpHeight = 1.0f;
     [SerializeField] private float gravityValue = -9.81f;
+    [SerializeField] private float debuffTimer = 0f;
     [SerializeField] private MeshRenderer playerMesh;
     [SerializeField] private AudioClip JumpSFX = null;
 
@@ -44,18 +45,32 @@ public class Controls : MonoBehaviour
     public void OnAction()
     {
 
-        if(playerConfig.PlayerIndex == 0 && GameObject.Find("BluePistonController").GetComponent<PistonController>().timer > 3)
+        if(playerConfig.PlayerIndex == 0 && GameObject.Find("BluePistonController").GetComponent<PistonController>().timer > 3 && debuffTimer <= 0)
         {
             GameObject.Find("BluePistonController").GetComponent<PistonController>().Activate();
         }
         
-        else if(playerConfig.PlayerIndex == 1 && GameObject.Find("RedPistonController").GetComponent<PistonController>().timer > 3)
+        else if(playerConfig.PlayerIndex == 1 && GameObject.Find("RedPistonController").GetComponent<PistonController>().timer > 3 && debuffTimer <= 0)
         {
             GameObject.Find("RedPistonController").GetComponent<PistonController>().Activate();
         }
     }
+
+    public void OnHit(float debuffTime)
+    {
+        debuffTimer = debuffTime;
+    }
+
     void Update()
     {
+        if(debuffTimer > 0)
+        {
+            debuffTimer -= Time.deltaTime;
+        } else if(GetComponent<Renderer>().material.color != playerConfig.PlayerMaterial.color)
+        {
+            GetComponent<Renderer>().material.color = playerConfig.PlayerMaterial.color;
+        }
+
         if(otherPlayer == null)
         {
             if (playerConfig.PlayerIndex == 0)
@@ -75,8 +90,8 @@ public class Controls : MonoBehaviour
             playerVelocity.y = 0f;
         }
         Vector3 move = new Vector3(mvmtInput.x, 0, 0);
+        if (debuffTimer > 0) move /= 2;
         controller.Move(move * Time.deltaTime * playerSpeed);
-
 
         if (hasJumped && groundedPlayer)
         {
