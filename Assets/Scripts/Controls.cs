@@ -21,11 +21,15 @@ public class Controls : MonoBehaviour
 
     private Vector3 originalPos;
     PlayerConfigData[] playerConfigs;
+    public PlayerConfigData GetPlayerConfig()
+    {
+        return playerConfig;
+    }
     private void Start()
     {
         controller = gameObject.GetComponent<CharacterController>();
-        //originalPos = gameObject.GetComponent<PlayerDetails>().GetStartPos();
-        playerConfigs = PlayerConfigManager.Instance.GetPlayerConfigs().ToArray();
+        originalPos = transform.position;
+        //playerConfigs = PlayerConfigManager.Instance.GetPlayerConfigs().ToArray();
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -40,7 +44,6 @@ public class Controls : MonoBehaviour
 
     public void OnAction()
     {
-        //otherPlayer.GetComponent<Renderer>().material.color = Color.black;
         if(playerConfig.PlayerIndex == 0 && GameObject.Find("RedPistonController").GetComponent<PistonController>().timer > 3)
         {
             GameObject.Find("RedPistonController").GetComponent<PistonController>().Activate();

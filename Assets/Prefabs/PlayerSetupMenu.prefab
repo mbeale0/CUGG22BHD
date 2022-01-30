@@ -1233,7 +1233,7 @@ MonoBehaviour:
         m_MethodName: SetColor
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 2100000, guid: a963f78693d0b4c449b1320c876567be,
+          m_ObjectArgument: {fileID: 2100000, guid: 3dc4b44e8b17bf946a42782e7fff74b5,
             type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Material, UnityEngine
           m_IntArgument: 0

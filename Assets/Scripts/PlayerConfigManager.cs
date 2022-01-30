@@ -32,9 +32,9 @@ public class PlayerConfigManager : MonoBehaviour
     {
         playerConfigs[index].PlayerMaterial = color;
     }
-    public Material GetColor(int index)
+    public Color GetColor(int index)
     {
-        return playerConfigs[index].PlayerMaterial;
+        return playerConfigs[index].PlayerMaterial.color;
     }
     public List<PlayerConfigData> GetPlayerConfigs()
     {
