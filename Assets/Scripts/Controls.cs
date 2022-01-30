@@ -10,6 +10,8 @@ public class Controls : MonoBehaviour
     [SerializeField] private float gravityValue = -9.81f;
     [SerializeField] private MeshRenderer playerMesh;
     [SerializeField] private AudioClip JumpSFX = null;
+    [SerializeField] private GameObject[] playerCharacters = null;
+    [SerializeField] private GameObject lookAtCube = null;
 
     private CharacterController controller;
     private Vector3 playerVelocity;
@@ -18,15 +20,27 @@ public class Controls : MonoBehaviour
     private Vector2 mvmtInput = Vector2.zero;
     private bool hasJumped = false;
     private GameObject otherPlayer = null;
-
     private Vector3 originalPos;
-    PlayerConfigData[] playerConfigs;
+    private int playerIndex = -1;
     public PlayerConfigData GetPlayerConfig()
     {
         return playerConfig;
     }
     private void Start()
     {
+        if(playerConfig.PlayerIndex == 0)
+        {
+            GameObject playerSelection = GameObject.FindGameObjectWithTag("PlayerSelection");
+            playerIndex = playerSelection.GetComponent<PlayerSelection>().GetOneCharacter();
+            playerCharacters[playerIndex].SetActive(true);
+        }
+        else if(playerConfig.PlayerIndex == 1)
+        {
+            GameObject playerSelection = GameObject.FindGameObjectWithTag("PlayerSelection");
+            playerIndex = playerSelection.GetComponent<PlayerSelection>().GetTwoCharacter();
+            playerCharacters[playerIndex].SetActive(true);
+        }
+        lookAtCube.transform.localPosition = new Vector3(2.7f, -1f, 0);
         controller = gameObject.GetComponent<CharacterController>();
         originalPos = transform.position;
     }
@@ -77,13 +91,38 @@ public class Controls : MonoBehaviour
         Vector3 move = new Vector3(mvmtInput.x, 0, 0);
         controller.Move(move * Time.deltaTime * playerSpeed);
 
+        Debug.Log("Grounded:  " + controller.isGrounded);
+        if (controller.isGrounded)
+        {
+            
+            playerCharacters[playerIndex].GetComponent<Animator>().ResetTrigger("Jump");
+            playerCharacters[playerIndex].GetComponent<Animator>().SetTrigger("Idle");
 
+        }
         if (hasJumped && groundedPlayer)
         {
             playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
             gameObject.GetComponent<AudioSource>().PlayOneShot(JumpSFX);
+            playerCharacters[playerIndex].GetComponent<Animator>().SetTrigger("Jump");
         }
-
+        else if(mvmtInput.x != 0)
+        {
+            playerCharacters[playerIndex].GetComponent<Animator>().SetTrigger("Run");
+        }
+        else
+        {
+            playerCharacters[playerIndex].GetComponent<Animator>().SetTrigger("Idle");
+            playerCharacters[playerIndex].GetComponent<Animator>().ResetTrigger("Run");
+        }
+        if(mvmtInput.x > 0)
+        {
+            lookAtCube.transform.localPosition = new Vector3(2.7f, -1f, 0);
+        }
+        else if (mvmtInput.x < 0)
+        {
+            lookAtCube.transform.localPosition = new Vector3(-2.7f, -.95f, 0);
+        }
+        playerCharacters[playerIndex].transform.LookAt(lookAtCube.transform);
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
     }
