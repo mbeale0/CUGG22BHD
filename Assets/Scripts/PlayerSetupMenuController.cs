@@ -23,9 +23,17 @@ public class PlayerSetupMenuController : MonoBehaviour
         ReadyPanel.SetActive(false);
     }
 
-    public void SetColor(Material color)
+    public void SetPlayer(int character)
     {
-        PlayerConfigManager.Instance.SetPlayerColor(PlayerIndex, color);
+        //PlayerConfigManager.Instance.SetPlayerColor(PlayerIndex, color);
+        if(PlayerIndex == 0)
+        {
+            GameObject.FindGameObjectWithTag("PlayerSelection").GetComponent<PlayerSelection>().SetOneCharacter(character);
+        }
+        else if (PlayerIndex == 1)
+        {
+            GameObject.FindGameObjectWithTag("PlayerSelection").GetComponent<PlayerSelection>().SetTwoCharacter(character);
+        }
         ReadyPanel.SetActive(true);
         ReadyButton.Select();
         MenuPanel.SetActive(false);
