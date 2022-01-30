@@ -23,7 +23,7 @@ public class SpikeController : MonoBehaviour
         if(other.CompareTag("PlayerOne") || other.CompareTag("PlayerTwo"))
         {
             other.GetComponent<Renderer>().material.color = Color.black;
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
     }
 }

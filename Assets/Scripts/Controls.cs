@@ -41,26 +41,26 @@ public class Controls : MonoBehaviour
     public void OnAction()
     {
         //otherPlayer.GetComponent<Renderer>().material.color = Color.black;
-        if(playerConfig.PlayerIndex == 0 && GameObject.Find("RedPistonController").GetComponent<PistonController>().timer > 3)
-        {
-            GameObject.Find("RedPistonController").GetComponent<PistonController>().Activate();
-        }
-        
-        else if(playerConfig.PlayerIndex == 1 && GameObject.Find("BluePistonController").GetComponent<PistonController>().timer > 3)
+        if(playerConfig.PlayerIndex == 0 && GameObject.Find("BluePistonController").GetComponent<PistonController>().timer > 3)
         {
             GameObject.Find("BluePistonController").GetComponent<PistonController>().Activate();
+        }
+        
+        else if(playerConfig.PlayerIndex == 1 && GameObject.Find("RedPistonController").GetComponent<PistonController>().timer > 3)
+        {
+            GameObject.Find("RedPistonController").GetComponent<PistonController>().Activate();
         }
     }
     void Update()
     {
         if(otherPlayer == null)
         {
-            if (playerConfig.PlayerIndex == 1)
+            if (playerConfig.PlayerIndex == 0)
             {
                 gameObject.tag = "PlayerOne";
                 otherPlayer = GameObject.FindGameObjectWithTag("PlayerTwo");
             }
-            else if (playerConfig.PlayerIndex == 2)
+            else if (playerConfig.PlayerIndex == 1)
             {
                 gameObject.tag = "PlayerTwo";
                 otherPlayer = GameObject.FindGameObjectWithTag("PlayerOne");
