@@ -14,19 +14,28 @@ public class PistonController : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
-        if(timer < 0.5f)
-        {
-            for(int i = 0; i < pistons.Length; i++)
-            {
-                pistons[i].transform.position = Vector3.MoveTowards(pistons[i].transform.position, outPositions[i], 0.05f);
-            }
-        }
+        ExtendPistons();
+        RetractPistons();
+    }
 
-        if(timer > 1.5f && timer < 2.0f)
+    private void RetractPistons()
+    {
+        if (timer > 1.5f && timer < 2.0f)
         {
             for (int i = 0; i < pistons.Length; i++)
             {
                 pistons[i].transform.position = Vector3.MoveTowards(pistons[i].transform.position, inPositions[i], 0.05f);
+            }
+        }
+    }
+
+    private void ExtendPistons()
+    {
+        if (timer < 0.5f)
+        {
+            for (int i = 0; i < pistons.Length; i++)
+            {
+                pistons[i].transform.position = Vector3.MoveTowards(pistons[i].transform.position, outPositions[i], 0.05f);
             }
         }
     }

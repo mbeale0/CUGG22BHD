@@ -37,9 +37,14 @@ public class MissileController : MonoBehaviour
     {
         if (other.CompareTag("PlayerOne") || other.CompareTag("PlayerTwo"))
         {
-            other.GetComponent<AudioSource>().PlayOneShot(boomSFX);
-            other.GetComponent<Controls>().OnHit(6.0f);
-            Destroy(gameObject);
+            HitPlayer(other);
         }
+    }
+
+    private void HitPlayer(Collider other)
+    {
+        other.GetComponent<AudioSource>().PlayOneShot(boomSFX);
+        other.GetComponent<Controls>().OnHit(6.0f);
+        Destroy(gameObject);
     }
 }

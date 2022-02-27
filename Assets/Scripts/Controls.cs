@@ -29,23 +29,33 @@ public class Controls : MonoBehaviour
     }
     private void Start()
     {
-        if(playerConfig.PlayerIndex == 0)
-        {
-            GameObject playerSelection = GameObject.FindGameObjectWithTag("PlayerSelection");
-            playerIndex = playerSelection.GetComponent<PlayerSelection>().GetOneCharacter();
-            playerCharacters[playerIndex].SetActive(true);
-        }
-        else if(playerConfig.PlayerIndex == 1)
-        {
-            GameObject playerSelection = GameObject.FindGameObjectWithTag("PlayerSelection");
-            playerIndex = playerSelection.GetComponent<PlayerSelection>().GetTwoCharacter();
-            playerCharacters[playerIndex].SetActive(true);
-        }
+        SetUpPlayerObject();
+        SetUpPlayerDetails();
+    }
+
+    private void SetUpPlayerDetails()
+    {
         lookAtCube.transform.localPosition = new Vector3(2.7f, -1f, 0);
         controller = gameObject.GetComponent<CharacterController>();
         originalPos = transform.position;
 
         playerConfig.PlayerMaterial = playerMesh.material;
+    }
+
+    private void SetUpPlayerObject()
+    {
+        if (playerConfig.PlayerIndex == 0)
+        {
+            GameObject playerSelection = GameObject.FindGameObjectWithTag("PlayerSelection");
+            playerIndex = playerSelection.GetComponent<PlayerSelection>().GetOneCharacter();
+            playerCharacters[playerIndex].SetActive(true);
+        }
+        else if (playerConfig.PlayerIndex == 1)
+        {
+            GameObject playerSelection = GameObject.FindGameObjectWithTag("PlayerSelection");
+            playerIndex = playerSelection.GetComponent<PlayerSelection>().GetTwoCharacter();
+            playerCharacters[playerIndex].SetActive(true);
+        }
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -106,7 +116,6 @@ public class Controls : MonoBehaviour
         if (debuffTimer > 0) move /= 2;
         controller.Move(move * Time.deltaTime * playerSpeed);
 
-        Debug.Log("Grounded:  " + controller.isGrounded);
         if (controller.isGrounded)
         {
             

@@ -25,7 +25,6 @@ public class PlayerSetupMenuController : MonoBehaviour
 
     public void SetPlayer(int character)
     {
-        //PlayerConfigManager.Instance.SetPlayerColor(PlayerIndex, color);
         if(PlayerIndex == 0)
         {
             GameObject.FindGameObjectWithTag("PlayerSelection").GetComponent<PlayerSelection>().SetOneCharacter(character);
